@@ -1,0 +1,85 @@
+* {
+  /* 
+    user-select prevents UI text from being accidentally selected for copy and paste
+  */
+  user-select: none;
+  /*
+    overscroll-behaviour is used to stop the refresh button being pulled down
+    on Chrome for Android (it was interfering with touch events)
+  */
+  overscroll-behavior: contain;
+}
+
+.board-wrapper {
+  border: dashed transparent 2px;
+  display: inline-block;
+  padding: 10px;
+}
+
+.board-wrapper.turn {
+  border-color: orange;
+  background-color: floralwhite;
+}
+
+@media (max-width: 991px) {
+  #boards:not(.toggled) .board-wrapper:not(.turn), #boards.toggled .board-wrapper.turn {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  #boardToggle {
+    display: none;
+  }
+}
+
+.board>div {
+  line-height: 1;
+}
+
+.board>div>div {
+  width: calc(10% - 10px);
+  aspect-ratio: 1;
+  margin: 5px;
+  display: inline-block;
+  background-color: cornflowerblue;
+  touch-action: none;
+}
+
+.board div.ship {
+  background-color: darkgray;
+}
+
+.board div.hit {
+  transition: background-color 1s;
+  background-color: darkred;
+}
+
+.board div.miss {
+  transition: background-color 1s;
+  background-color: dimgray;
+}
+
+@media(hover: hover) and (pointer: fine) {
+  .board>div>div[data-title]:hover {
+    filter: brightness(75%);
+  }
+}
+
+.turn #opponentBoard>div>div:hover:not(.hit, .miss) {
+  cursor: pointer;
+}
+
+#tooltip {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 10000;
+}
+
+#inviteQR>* {
+  cursor: pointer;
+}
