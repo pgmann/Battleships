@@ -66,11 +66,11 @@
                   <form class="needs-validation" id="createForm" action="/play.php" novalidate>
                     <div class="form-floating mb-3">
                       <input type="text" class="form-control" id="createName" name="name" placeholder="Bob" autocomplete="given-name" required>
-                      <label for="create-name" class="col-form-label">Name:</label>
+                      <label for="createName" class="col-form-label">Name:</label>
                     </div>
                     <div class="form-floating mb-3">
                       <input type="number" class="form-control" id="boardSize" name="size" min="5" max="10" placeholder="10" required>
-                      <label for="board-size" class="col-form-label">Board Size (5-10):</label>
+                      <label for="boardSize" class="col-form-label">Board Size (5-10):</label>
                     </div>
                   </form>
                 </div>
