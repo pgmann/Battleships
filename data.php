@@ -1,5 +1,8 @@
 <?php
 
+// any debug/warnings rendered in the page output would break the json format being returned.
+// they should just be logged to file instead.
+ini_set('display_errors', 0);
 header('Content-Type: application/json');
 
 include "model.php";

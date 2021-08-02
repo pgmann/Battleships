@@ -9,7 +9,7 @@ var state, waiter;
 // STATE
 function updateState(data) {
   if (data.error) {
-    if (["The game has ended", "Invalid invite code"].includes(data.error)) window.location.pathname = "/";
+    if (["The game has ended", "Invalid invite code"].includes(data.error)) window.location.href = "./";
     alert("ERROR: " + data.error);
     return;
   }
@@ -106,7 +106,7 @@ function updateState(data) {
     if (!waiter) {
       // keep asking the server if it's my turn again yet
       waiter = window.setInterval(() => {
-        $.get("/data.php", data => {
+        $.get("data.php", data => {
           if (data.error) updateState(data);
           if (data.my_board.my_turn || data.winner != null) {
             window.clearInterval(waiter);
@@ -121,7 +121,7 @@ function updateState(data) {
 
 // execute a move
 function strike(x, y) {
-  $.get("/data.php?x=" + x + "&y=" + y, data => {
+  $.get("data.php?x=" + x + "&y=" + y, data => {
     updateState(data);
   });
 }
@@ -134,12 +134,12 @@ boardToggle.addEventListener("click", () => {
 // lets the user end the game
 endGame.addEventListener("click", () => {
   if (waiter) window.clearInterval(waiter);
-  $.get("/data.php?end", data => {
-    window.location.pathname = "/";
+  $.get("data.php?end", data => {
+    window.location.href = "./";
   });
 });
 
 // init page with data
-$.get("/data.php", data => {
+$.get("data.php", data => {
   updateState(data);
 });

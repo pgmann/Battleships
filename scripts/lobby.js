@@ -32,9 +32,9 @@ createForm.addEventListener("submit", function (event) {
 
   bootstrap.Modal.getInstance(createModal).hide();
   bootstrap.Modal.getOrCreateInstance(waitingModal).show();
-  $.get("/data.php?name=" + createName.value + "&size=" + boardSize.value, (data) => {
+  $.get("data.php?name=" + createName.value + "&size=" + boardSize.value, (data) => {
     inviteCodeDisplay.innerText = data.invite;
-    var inviteUrl = window.location.origin + "/#" + data.invite;
+    var inviteUrl = window.location.origin + window.location.pathname + "#" + data.invite;
     new QRCode(inviteQR, {
       text: inviteUrl,
       width: 128,
@@ -54,17 +54,16 @@ createForm.addEventListener("submit", function (event) {
   });
 
   waiter = window.setInterval(() => {
-    $.get("/data.php", (data) => {
+    $.get("data.php", (data) => {
       if (data.opponent) {
-        window.location.hash = "";
-        window.location.pathname = "/play.php";
+        window.location.href = "play.php";
       }
     });
   }, 1000);
 });
 
 waitingModal.addEventListener('hidden.bs.modal', function (event) {
-  $.get("/data.php?end", (data) => {
+  $.get("data.php?end", (data) => {
     inviteCodeDisplay.innerText = "generating";
     inviteQR.innerHTML = "";
   });
@@ -74,7 +73,7 @@ waitingModal.addEventListener('hidden.bs.modal', function (event) {
 joinForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  $.get("/data.php?name=" + joinName.value + "&invite=" + inviteCode.value, (data) => {
+  $.get("data.php?name=" + joinName.value + "&invite=" + inviteCode.value, (data) => {
     joinForm.classList.remove("was-validated"); // this client-side validation would override the server side validation
     joinName.classList.add("is-valid");
     if (data.error) {
@@ -86,8 +85,7 @@ joinForm.addEventListener("submit", function (event) {
     } else {
       inviteCode.classList.remove("is-invalid");
       inviteCode.classList.add("is-valid");
-      window.location.hash = "";
-      window.location.pathname = "/play.php";
+      window.location.href = "play.php";
     }
   });
 });
